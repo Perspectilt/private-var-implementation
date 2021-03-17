@@ -53,7 +53,6 @@ class funny(object):
 
 
 	def __setattr__(self, *a):
-
 		# Following if statement checks the stack to make sure it isn't empty
 		if inspect.stack()[1][4]:
 
@@ -83,9 +82,7 @@ class funny(object):
 					print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
 					return
 
-
 	def __delattr__(self, a):
-		
 		# Following if statement checks the stack to make sure it isn't empty
 		if inspect.stack()[1][4]:
 
@@ -114,9 +111,7 @@ class funny(object):
 					print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
 					return
 
-
 	def __getattribute__(self, a):
-		
 		# Following if statement checks the stack to make sure it isn't empty
 		if inspect.stack()[1][4]:
 
@@ -144,7 +139,6 @@ class funny(object):
 					print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
 					return
 	
-
 	def judge(self):
 		"""Returns 'nice' in case the entered argument was a number, 69; or None in case it wasn't"""
 
