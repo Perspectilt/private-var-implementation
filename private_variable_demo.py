@@ -59,7 +59,7 @@ class funny(object):
 				object.__setattr__(self, *a)		# The method is supposed to behave regularly in case it was called from within the class
 				return
 
-		# Checks if the variable referenced is in self.privates
+		# Checks if the variable is referenced in self.privates
 		if a[0] in self.privates:
 			# The custom error raising block (kind of buggy atm)
 			try:
@@ -87,7 +87,7 @@ class funny(object):
 				object.__delattr__(self, a)		# The method is supposed to behave regularly in case it was called from within the class
 				return
 		
-		# Checks if the variable referenced is in self.privates
+		# Checks if the variable is referenced in self.privates
 		if a in self.privates:
 			try:
 				raise AttributeError("'funny' object has no attribute '" + a + "'")
@@ -113,7 +113,7 @@ class funny(object):
 			if 'self.' in inspect.stack()[1][4][0].strip():
 				return object.__getattribute__(self, a)		# The method is supposed to behave regularly in case it was called from within the class
 		
-		# Checks if the variable referenced is in self.privates
+		# Checks if the variable is referenced in self.privates
 		if a in self.privates:
 			try:
 				raise AttributeError("'funny' object has no attribute '" + a + "'")
