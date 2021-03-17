@@ -38,7 +38,6 @@ which is yet to be solved."""
 import traceback
 import sys
 import inspect
-import builtins
 
 class funny(object):
 	"""A demo class created to showcase an implementation of private variables in a python class. Accepts one argument
