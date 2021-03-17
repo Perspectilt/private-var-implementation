@@ -15,8 +15,8 @@ Issues:-
 
 The error handling isn't perfect: I'm yet to discover a way to raise custom errors to fully mimick python's 'raise'
 statement.
-(Right now, errors are thrown by using making use of the traceback module. Functions are terminated using a blank return 
-statement. However, this does not return an exit code like how python's default raise statements do. In case one attempts to
+(Right now, errors are thrown by making use of the traceback module. Functions are terminated using a blank return 
+statement. However, this does not return an exit code like how python's default raise statements does. In case one attempts to
 use the sys.exit(1) option or any similar function, it works while in script mode, however upon usage in the interactive 
 mode, the program exits out of the interactive mode on incurring sys.exit().
 
@@ -26,11 +26,11 @@ However, python's built-in modules do not have this kind of a drawback. My inten
 
 
 Another big existing issue is that, in the way the concerned methods (__delattr__(), __getattribute__(), __setattr__())
-are defined, it makes use of declaring the class as a derivative of the builtin-in 'object' class. And as I had said above,
+are defined, it makes use of declaring the class as a derivative of the builtin-in 'object' class. As I had said above,
 since python does not natively differentiate method calls from within the class or outside of it, it is possible to bypass
 the restrictions set up in this code to still access these "private" variables. For example, if one wishes to access the 
 variable 'foo' of an object, say 'bar', of the class 'MyClass' (which is a derivate of the built-in class 'object'), they 
-can simply use object.__getattribute__(bar, 'foo') and access the value of the variable. This is a very simple work around
+can simply use object.__getattribute__(bar, 'foo') and access the value of the variable. This is a very simple workaround
 which is yet to be solved."""
 
 
