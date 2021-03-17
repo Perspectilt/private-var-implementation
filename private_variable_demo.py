@@ -15,7 +15,7 @@ Issues:-
 
 The error handling isn't perfect: I'm yet to discover a way to raise custom errors to fully mimick python's 'raise'
 statement.
-(Right now, erors are thrown by using making use of the traceback module. Functions are terminated using a blank return 
+(Right now, errors are thrown by using making use of the traceback module. Functions are terminated using a blank return 
 statement. However, this does not return an exit code like how python's default raise statements do. In case one attempts to
 use the sys.exit(1) option or any similar function, it works while in script mode, however upon usage in the interactive 
 mode, the program exits out of the interactive mode on incurring sys.exit().
