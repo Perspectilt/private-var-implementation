@@ -51,7 +51,6 @@ class funny(object):
 		self.a = a
 		self.privates.append('a')		# The variable name needs to be added to self.privates to make it private
 
-
 	def __setattr__(self, *a):
 		# Following if statement checks the stack to make sure it isn't empty
 		if inspect.stack()[1][4]:
