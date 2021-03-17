@@ -54,7 +54,6 @@ class funny(object):
 	def __setattr__(self, *a):
 		# Following if statement checks the stack to make sure it isn't empty
 		if inspect.stack()[1][4]:
-
 			# The following if statement checks the stack for the word 'self.'
 			if 'self.' in inspect.stack()[1][4][0].strip():
 				object.__setattr__(self, *a)		# The method is supposed to behave regularly in case it was called from within the class
@@ -73,7 +72,6 @@ class funny(object):
 			try:
 				object.__setattr__(self, *a)
 			except AttributeError:
-
 				# Again using the customised error block
 				try:
 					raise AttributeError("'funny' object has no attribute '" + a + "'")
@@ -84,7 +82,6 @@ class funny(object):
 	def __delattr__(self, a):
 		# Following if statement checks the stack to make sure it isn't empty
 		if inspect.stack()[1][4]:
-
 			# The following if statement checks the stack for the word 'self.'
 			if 'self.' in inspect.stack()[1][4][0].strip():
 				object.__delattr__(self, a)		# The method is supposed to behave regularly in case it was called from within the class
@@ -102,7 +99,6 @@ class funny(object):
 			try:
 				object.__delattr__(self, a)
 			except AttributeError:
-
 				# Again using the customised error block
 				try:
 					raise AttributeError("'funny' object has no attribute '" + a + "'")
@@ -113,7 +109,6 @@ class funny(object):
 	def __getattribute__(self, a):
 		# Following if statement checks the stack to make sure it isn't empty
 		if inspect.stack()[1][4]:
-
 			# The following if statement checks the stack for the word 'self.'
 			if 'self.' in inspect.stack()[1][4][0].strip():
 				return object.__getattribute__(self, a)		# The method is supposed to behave regularly in case it was called from within the class
@@ -130,7 +125,6 @@ class funny(object):
 			try:
 				return object.__getattribute__(self, a)
 			except AttributeError:
-
 				# Again using the customised error block
 				try:
 					raise AttributeError("'funny' object has no attribute '" + a + "'")
