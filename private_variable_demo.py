@@ -39,6 +39,7 @@ import traceback
 import sys
 import inspect
 
+
 class funny(object):
 	"""A demo class created to showcase an implementation of private variables in a python class. Accepts one argument
 	which can be numeric or alphanumeric. The class has two methods, judge() and decorate()."""
