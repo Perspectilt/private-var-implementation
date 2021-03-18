@@ -31,7 +31,7 @@ since python does not natively differentiate method calls from within the class 
 the restrictions set up in this code to still access these "private" variables. For example, if one wishes to access the 
 variable 'foo' of an object, say 'bar', of the class 'MyClass' (which is a derivate of the built-in class 'object'), they 
 can simply use object.__getattribute__(bar, 'foo') and access the value of the variable. This is a very simple workaround
-which is yet to be solved."""
+which is yet to be fixed."""
 
 
 
