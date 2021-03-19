@@ -46,6 +46,8 @@ class funny(object):
 
 	__all__ = ['judge()', 'decorate()']
 
+	vars = {}
+
 	privates = ['privates', '__dict__']		# The list storing the names of all the variables that are supposed to be private
 	
 	def __init__(self, a):
@@ -62,23 +64,15 @@ class funny(object):
 
 		# Checks if the variable is referenced in self.privates
 		if a[0] in self.privates:
-			# The custom error raising block (kind of buggy atm)
-			try:
-				raise AttributeError("'funny' object has no attribute '" + a[0] + "'")
-			except AttributeError:
-				print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
-				return
-		else:	
-			# In case it wasn't a private variable, try executing the method normally
-			try:
-				object.__setattr__(self, *a)
-			except AttributeError:
-				# Again using the customised error block
-				try:
-					raise AttributeError("'funny' object has no attribute '" + a + "'")
-				except AttributeError:
-					print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
-					return
+			self.vars[a[0]] = 'var_' + a[0]
+			a = ('var_' + a[0],) + a[1::]
+			self.privates.append(a[0])
+
+		try:
+			object.__setattr__(self, *a)
+		except:
+			print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
+			return
 
 	def __delattr__(self, a):
 		# Following if statement checks the stack to make sure it isn't empty
@@ -89,23 +83,21 @@ class funny(object):
 				return
 		
 		# Checks if the variable is referenced in self.privates
-		if a in self.privates:
+		if a in self.vars.keys():
+			b, a = a, self.vars[a]
+			self.vars.pop(b)
+		elif a in self.privates:
 			try:
 				raise AttributeError("'funny' object has no attribute '" + a + "'")
 			except AttributeError:
 				print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
 				return
-		else:
-			# In case it wasn't a private variable, try executing the method normally
-			try:
-				object.__delattr__(self, a)
-			except AttributeError:
-				# Again using the customised error block
-				try:
-					raise AttributeError("'funny' object has no attribute '" + a + "'")
-				except AttributeError:
-					print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
-					return
+
+		try:
+			object.__delattr__(self, a)
+		except:
+			print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
+			return
 
 	def __getattribute__(self, a):
 		# Following if statement checks the stack to make sure it isn't empty
@@ -115,23 +107,20 @@ class funny(object):
 				return object.__getattribute__(self, a)		# The method is supposed to behave regularly in case it was called from within the class
 		
 		# Checks if the variable is referenced in self.privates
-		if a in self.privates:
+		if a in self.vars.keys():
+			a = self.vars[a]
+		elif a in self.privates:
 			try:
 				raise AttributeError("'funny' object has no attribute '" + a + "'")
 			except AttributeError:
 				print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
 				return
-		else:
-			# In case it wasn't a private variable, try executing the method normally
-			try:
-				return object.__getattribute__(self, a)
-			except AttributeError:
-				# Again using the customised error block
-				try:
-					raise AttributeError("'funny' object has no attribute '" + a + "'")
-				except AttributeError:
-					print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
-					return
+
+		try:
+			return object.__getattribute__(self, a)
+		except:
+			print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
+			return
 	
 	def judge(self):
 		"""Returns 'nice' in case the entered argument was a number, 69; or None in case it wasn't"""
