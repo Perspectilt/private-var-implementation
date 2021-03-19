@@ -125,7 +125,7 @@ class funny(object):
 	def judge(self):
 		"""Returns 'nice' in case the entered argument was a number, 69; or None in case it wasn't"""
 
-		print( ('nice', '')[self.a != 69])
+		print(('nice', '')[self.a != 69])
 
 	def decorate(self):
 		"""Prints the entered argument 69 times, back-to-back"""
