@@ -46,7 +46,7 @@ class funny(object):
 
 	__all__ = ['judge()', 'decorate()']
 
-	vars = {}
+	vars = {}		# Dictionary to store the newly implemented variables using __setattr__(), in case they match the existing private ones
 
 	privates = ['privates', '__dict__']		# The list storing the names of all the variables that are supposed to be private
 	
@@ -67,7 +67,8 @@ class funny(object):
 			self.vars[a[0]] = 'var_' + a[0]
 			a = ('var_' + a[0],) + a[1::]
 			self.privates.append(a[0])
-
+		
+		# Execute the function normally by making use of the custom error handle
 		try:
 			object.__setattr__(self, *a)
 		except:
@@ -82,10 +83,11 @@ class funny(object):
 				object.__delattr__(self, a)		# The method is supposed to behave regularly in case it was called from within the class
 				return
 		
-		# Checks if the variable is referenced in self.privates
+		# Checks if the variable is in vars
 		if a in self.vars.keys():
 			b, a = a, self.vars[a]
 			self.vars.pop(b)
+		# Checks if the variable is referenced in privates
 		elif a in self.privates:
 			try:
 				raise AttributeError("'funny' object has no attribute '" + a + "'")
@@ -93,6 +95,7 @@ class funny(object):
 				print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
 				return
 
+		# Execute the function normally by making use of the custom error handle
 		try:
 			object.__delattr__(self, a)
 		except:
@@ -106,9 +109,10 @@ class funny(object):
 			if 'self.' in inspect.stack()[1][4][0].strip():
 				return object.__getattribute__(self, a)		# The method is supposed to behave regularly in case it was called from within the class
 		
-		# Checks if the variable is referenced in self.privates
+		# Checks if the variable is in vars
 		if a in self.vars.keys():
 			a = self.vars[a]
+		# Checks if the variable is referenced in privates
 		elif a in self.privates:
 			try:
 				raise AttributeError("'funny' object has no attribute '" + a + "'")
@@ -116,6 +120,7 @@ class funny(object):
 				print(traceback.format_exc().splitlines(keepends=True)[0] + ''.join(traceback.format_stack()[:-1]) + traceback.format_exc().splitlines()[-1], file=sys.stderr)
 				return
 
+		# Execute the function normally by making use of the custom error handle
 		try:
 			return object.__getattribute__(self, a)
 		except:
