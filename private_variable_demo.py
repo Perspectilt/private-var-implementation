@@ -137,6 +137,6 @@ class funny(object):
 	
 		print(69 * str(self.a))
 
-	# Redeclaring __dir__() to remove all references of the private variables (agreed, it can be done in a more 'python'way)
+	# Redeclaring __dir__() to remove all references of the private variables (agreed, it can be done in a more 'python'-way)
 	def __dir__(self):
 		return ['__module__', '__init__', '__weakref__', '__doc__', '__repr__', '__hash__', '__str__', '__getattribute__', '__setattr__', '__delattr__', '__lt__', '__le__', '__eq__', '__ne__', '__gt__', '__ge__', '__new__', '__reduce_ex__', '__reduce__', '__subclasshook__', '__init_subclass__', '__format__', '__sizeof__', '__dir__', '__class__']
